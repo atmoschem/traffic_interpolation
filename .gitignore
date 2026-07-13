@@ -1,0 +1,34 @@
+# Data — hosted on Zenodo
+data/
+*.csv
+*.csv.gz
+*.gpkg
+*.fst
+*.rds
+*.zip
+*.tif
+
+# R
+.Rhistory
+.RData
+.Renv
+renv/
+
+# Python
+__pycache__/
+*.pyc
+.env
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Outputs (regenerated)
+experiments/*/output/
+experiments/*/figs/
+
+# Editor
+*.swp
+*.swo
+*~
