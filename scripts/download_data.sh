@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-ZENODO_URL="https://zenodo.org/records/XXXXXX/files"
+# DOI: 10.5281/zenodo.21342807
+ZENODO_URL="https://zenodo.org/records/21342807/files"
 DEST_DIR="data"
 mkdir -p "$DEST_DIR"
 echo "Downloading SE_full_predictions.csv.gz..."
