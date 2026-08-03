@@ -1,0 +1,34 @@
+{
+  "flow_pc": {
+    "r2": 0.6164,
+    "mae": 181.04,
+    "bias_ratio": 1.042,
+    "mean_obs": 396.6,
+    "mean_pred": 413.4,
+    "n": 56057
+  },
+  "flow_lcv": {
+    "r2": 0.5611,
+    "mae": 34.17,
+    "bias_ratio": 0.995,
+    "mean_obs": 74.9,
+    "mean_pred": 74.5,
+    "n": 56057
+  },
+  "flow_mc": {
+    "r2": 0.5531,
+    "mae": 15.73,
+    "bias_ratio": 1.017,
+    "mean_obs": 32.2,
+    "mean_pred": 32.7,
+    "n": 56057
+  },
+  "flow_truck": {
+    "r2": 0.5712,
+    "mae": 14.16,
+    "bias_ratio": 0.987,
+    "mean_obs": 31.2,
+    "mean_pred": 30.8,
+    "n": 56057
+  }
+}

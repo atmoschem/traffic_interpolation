@@ -1,0 +1,18 @@
+{
+  "static_only": {
+    "r2": 0.888,
+    "mae": 6.8,
+    "rmse": 10.9,
+    "rounds": 500,
+    "n_train": 187634,
+    "n_test": 46908
+  },
+  "temporal": {
+    "r2": 0.9173,
+    "mae": 5.8,
+    "rmse": 9.3,
+    "rounds": 499,
+    "n_train": 187634,
+    "n_test": 46908
+  }
+}

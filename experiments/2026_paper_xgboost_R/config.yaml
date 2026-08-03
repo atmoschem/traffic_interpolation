@@ -1,9 +1,0 @@
-# 2026 XGBoost paper config
-data_dir: "/home/sibarra/.hermes/profiles/aire/home/hermes_vein/utfpr2025"
-training_data: "{{ data_dir }}/xgboost_june_2026/training_data_fixed_rd.csv"
-cetrio_data: "{{ data_dir }}/xgboost_june_2026/cetrio_training_data_r.csv"
-predictions: "{{ data_dir }}/xgboost_june_2026/SE_full_predictions.csv.gz"
-osm_split: "{{ data_dir }}/data/phase1/osm_se/SE_split.gpkg"
-model_dir: "experiments/2026_paper_xgboost_R/models"
-output_dir: "experiments/2026_paper_xgboost_R/output"
-figs_dir: "experiments/2026_paper_xgboost_R/figs"
