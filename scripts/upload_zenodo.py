@@ -97,7 +97,8 @@ def main() -> None:
         meta["version"] = args.version
     if args.note:
         meta["notes"] = (meta.get("notes", "") + " " + args.note).strip()
-    r = requests.put(draft_url, data=json.dumps({"metadata": meta}), headers=headers, timeout=120)
+    r = requests.put(draft_url, data=json.dumps({"metadata": meta}),
+                     headers={**headers, "Content-Type": "application/json"}, timeout=120)
     if r.status_code != 200:
         sys.exit(f"metadata update failed ({r.status_code}): {r.text[:500]}")
     print("  metadata updated")
