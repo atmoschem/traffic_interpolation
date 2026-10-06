@@ -26,7 +26,18 @@ from pathlib import Path
 import requests
 
 API = "https://zenodo.org/api"
-RECORD_ID = 21342807  # latest published version; the concept is 21342806
+CONCEPT_ID = 21342806  # concept DOI 10.5281/zenodo.21342806; the latest version is resolved at runtime
+
+
+def latest_version_id(headers: dict) -> int:
+    """Resolve the newest version of the record from its concept id."""
+    r = requests.get(f"{API}/records/{CONCEPT_ID}/versions/latest", headers=headers,
+                     timeout=60, allow_redirects=True)
+    if r.status_code == 200:
+        return int(r.json()["id"])
+    r = requests.get(f"{API}/records/{CONCEPT_ID}", headers=headers, timeout=60, allow_redirects=True)
+    r.raise_for_status()
+    return int(r.json()["id"])
 
 
 def get_token() -> str:
@@ -46,13 +57,17 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--file", action="append", required=True,
                     help="file to upload into the new version (repeatable)")
-    ap.add_argument("--record", type=int, default=RECORD_ID)
+    ap.add_argument("--record", type=int, default=None,
+                    help="version to base the new upload on (default: latest version of the concept)")
     ap.add_argument("--version", default=None, help="metadata version string")
+    ap.add_argument("--publication-date", default=None,
+                    help="publication date for the new version (default: today)")
     ap.add_argument("--note", default=None, help="extra sentence added to the record notes")
     ap.add_argument("--no-publish", action="store_true", help="leave the draft unpublished")
     args = ap.parse_args()
 
     headers = {"Authorization": f"Bearer {get_token()}"}
+    record_id = args.record or latest_version_id(headers)
 
     # 0. check credentials
     r = requests.get(f"{API}/deposit/depositions", params={"size": 1}, headers=headers, timeout=60)
@@ -60,7 +75,8 @@ def main() -> None:
         sys.exit(f"Token rejected by Zenodo ({r.status_code}): {r.text[:300]}")
 
     # 1. create the new version (idempotent: returns the existing draft if there is one)
-    r = requests.post(f"{API}/deposit/depositions/{args.record}/actions/newversion",
+    print(f"creating a new version of record {record_id}")
+    r = requests.post(f"{API}/deposit/depositions/{record_id}/actions/newversion",
                       headers=headers, timeout=120)
     if r.status_code not in (201, 403):
         sys.exit(f"newversion failed ({r.status_code}): {r.text[:300]}")
@@ -95,6 +111,7 @@ def main() -> None:
     meta = draft["metadata"]
     if args.version:
         meta["version"] = args.version
+    meta["publication_date"] = args.publication_date or __import__("datetime").date.today().isoformat()
     if args.note:
         meta["notes"] = (meta.get("notes", "") + " " + args.note).strip()
     r = requests.put(draft_url, data=json.dumps({"metadata": meta}),

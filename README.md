@@ -50,11 +50,15 @@ path and then to auto-detection relative to the script location.
 
 ## Data
 
-The full SE Brazil prediction dataset is on **Zenodo** (DOI: [10.5281/zenodo.21342807](https://doi.org/10.5281/zenodo.21342807)):
+The full SE Brazil prediction dataset is on **Zenodo**, concept DOI
+[10.5281/zenodo.21342806](https://doi.org/10.5281/zenodo.21342806) (always the latest version;
+version 2.0 is [10.5281/zenodo.23196883](https://doi.org/10.5281/zenodo.23196883), published 2026-10-06):
 
 - `SE_split.gpkg` — 200k OSM road segments (geometry + `segment_id`)
 - `SE_full_predictions.csv.gz` — one row per segment (200,420 rows): attributes, 20 features,
   hourly flows and hourly speeds
+
+`scripts/download_data.sh` resolves the concept DOI and fetches the newest files into `data/`.
 
 ### `SE_full_predictions.csv.gz` columns
 
